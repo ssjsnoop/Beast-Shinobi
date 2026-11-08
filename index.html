@@ -48,7 +48,7 @@
   .toast{position:absolute;left:50%;top:78px;transform:translateX(-50%);background:rgba(10,6,20,.9);border:2px solid #8fe8ff;color:#fff;padding:7px 14px;border-radius:10px;font-weight:700;font-size:13px;z-index:7;pointer-events:none;white-space:nowrap;max-width:90%;overflow:hidden;text-overflow:ellipsis}
   #touch{position:fixed;inset:0;pointer-events:none;display:none;z-index:6}
   #touch #stick{z-index:1}
-  #stick{position:absolute;left:0;top:70px;bottom:0;width:44%;pointer-events:auto;touch-action:none}
+  #stick{position:absolute;left:0;top:70px;bottom:0;width:40%;pointer-events:auto;touch-action:none}
   #ring{position:absolute;display:none;width:110px;height:110px;border-radius:50%;border:3px solid rgba(255,255,255,.35);background:rgba(20,14,34,.35);pointer-events:none}
   #nub{position:absolute;width:40px;height:40px;border-radius:50%;background:rgba(255,230,160,.65);border:2px solid #fff;pointer-events:none}
   .tb{position:absolute;pointer-events:none;width:50px;height:50px;border-radius:50%;background:rgba(20,14,34,.5);border:2px solid rgba(255,255,255,.4);color:#fff;font-size:11px;font-weight:800;display:flex;flex-direction:column;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none;line-height:1.05}
@@ -56,17 +56,21 @@
   .tb.on{background:rgba(255,210,90,.6)}
   .tb.lock{opacity:.25}
   .tb.cur{border-color:#ffd86b;background:rgba(255,160,40,.5)}
-  #btnzone{position:absolute;right:0;top:56px;bottom:0;width:58%;pointer-events:auto;touch-action:none}
+  #btnzone{position:absolute;right:0;top:56px;bottom:0;width:60%;pointer-events:auto;touch-action:none}
   #btnpad{position:absolute;right:0;bottom:0;width:0;height:0;transform:scale(var(--k,1));transform-origin:bottom right;pointer-events:none}
   #btnpad .tb{pointer-events:none;width:58px;height:58px}
   #btnpad .tb.hidden{display:none}
-  .tb[data-t=jump]{right:104px;bottom:8px;width:86px!important;height:86px!important;background:rgba(60,120,220,.5);font-size:12px}
-  .tb[data-t=atk]{right:10px;bottom:52px;width:86px!important;height:86px!important;background:rgba(200,50,70,.55);font-size:12px}
+  .tb[data-t=atk]{right:104px;bottom:8px;width:86px!important;height:86px!important;background:rgba(200,50,70,.55);font-size:12px}
+  .tb[data-t=jump]{right:10px;bottom:52px;width:92px!important;height:92px!important;background:rgba(60,120,220,.5);font-size:12px}
   .tb[data-t=dash]{right:116px;bottom:100px;width:62px!important;height:62px!important}
   .tb[data-t=hook]{right:200px;bottom:34px}
   .tb[data-t=star]{right:200px;bottom:100px}
-  .tb[data-t=spec]{right:16px;bottom:146px;width:66px!important;height:66px!important;background:rgba(150,60,200,.5)}
-  #formRow{position:absolute;left:50%;transform:translateX(-50%);top:4px;display:flex;gap:8px;pointer-events:none}
+  .tb[data-t=wheel]{right:284px;bottom:34px;width:62px!important;height:62px!important;background:rgba(40,160,120,.5)}
+  .tb[data-t=lion]{right:284px;bottom:104px}
+  #jleg{position:absolute;right:10px;bottom:218px;width:150px;text-align:right;font-size:12px;font-weight:800;color:#fff;text-shadow:0 1px 3px #000;pointer-events:none;line-height:1.25}
+  #jleg i{font-style:normal;opacity:.35}#jleg i.on{opacity:1}
+  .tb[data-t=spec]{right:16px;bottom:150px;width:66px!important;height:66px!important;background:rgba(150,60,200,.5)}
+  #formRow{display:none}
   #formRow .tb{position:relative;pointer-events:auto;width:52px;height:46px;border-radius:12px;font-size:19px;padding:0}
   #formRow .tb small{font-size:9px;font-weight:800;letter-spacing:.5px}
   #formRow .tb.hidden{display:none}
@@ -94,18 +98,16 @@
 <div id="touch">
   <div id="stick"><div id="ring"><div id="nub"></div></div></div>
   <div id="btnzone"><div id="btnpad">
-    <div class="tb" data-t="jump"><b>▲</b>JUMP</div>
     <div class="tb" data-t="atk"><b>⚔</b>ATK</div>
+    <div class="tb" data-t="jump"><b>▲</b>JUMP</div>
     <div class="tb" data-t="dash"><b>≫</b>DASH</div>
     <div class="tb" data-t="hook" id="chainbtn"><b>⛓</b>CHAIN</div>
     <div class="tb" data-t="star" id="starbtn"><b>✦</b>STAR</div>
-    <div class="tb" data-t="spec" id="specbtn"><b>◎</b><span id="speclab">JUTSU</span></div>
+    <div class="tb" data-t="spec" id="specbtn"><b>◎</b><span id="speclab">SPEC</span></div>
+    <div class="tb" data-t="wheel" id="wheelbtn"><b id="wheelico">🥷</b>FORM</div>
+    <div class="tb" data-t="lion" id="lionbtn"><b>🦁</b>LION</div>
+    <div id="jleg"></div>
   </div></div>
-  <div id="formRow">
-    <div class="tb" data-t="wheel" id="wheelbtn"><span id="wheelico">🥷</span><small>FORM</small></div>
-    <div class="tb" data-t="jutsu" id="jutsubtn"><span id="jutsuico">🌀</span><small>JUTSU</small></div>
-    <div class="tb" data-t="lion" id="lionbtn"><span>🦁</span><small>LION</small></div>
-  </div>
   <div class="tb" data-t="pause" id="pausebtn">❚❚</div>
 </div>
 <script>
@@ -135,6 +137,7 @@ function fit() {
   cv.width = VW; cv.height = H;
   const sc = Math.min(iw / VW, ih / H);
   cv.style.width = Math.round(VW * sc) + 'px'; cv.style.height = Math.round(H * sc) + 'px';
+  document.documentElement.style.setProperty('--k', String(Math.max(0.5, Math.min(ih / 390, iw * 0.5 / 360, 1.15)).toFixed(3)));
   cv.style.left = Math.round((iw - VW * sc) / 2) + 'px'; cv.style.top = Math.round((ih - H * sc) / 2) + 'px';
   const ov = document.getElementById('ovwrap');
   ov.style.width = cv.style.width; ov.style.height = cv.style.height; ov.style.left = cv.style.left; ov.style.top = cv.style.top;
@@ -202,6 +205,7 @@ window.addEventListener('blur', () => { for (const k in keyH) keyH[k] = false; f
 window.addEventListener('gamepadconnected', e => { gpName = e.gamepad.id; usingPad = true; refreshTouchUI(); });
 window.addEventListener('gamepaddisconnected', () => { gpName = ''; usingPad = false; refreshTouchUI(); });
 const I = { mx: 0, my: 0 };
+let keepP = false; // true when the last frame ran no sim step: keep tap edges until a step consumes them (120Hz fix)
 function pollInput() {
   const nh = {}; ACTS.forEach(a => nh[a] = false);
   for (const a in KEYMAP) if (KEYMAP[a].some(c => keyH[c])) nh[a] = true;
@@ -219,7 +223,7 @@ function pollInput() {
     if (any && !usingPad) { usingPad = true; refreshTouchUI(); }
   }
   for (const a in touchH) if (touchH[a]) nh[a] = true;
-  for (const a of ACTS) { held[a] = nh[a]; pressed[a] = (nh[a] && !prev[a]) || pulse[a]; prev[a] = nh[a]; pulse[a] = false; }
+  for (const a of ACTS) { held[a] = nh[a]; pressed[a] = (keepP && pressed[a]) || (nh[a] && !prev[a]) || pulse[a]; prev[a] = nh[a]; pulse[a] = false; }
   I.mx = (held.right ? 1 : 0) - (held.left ? 1 : 0);
   I.my = (held.down ? 1 : 0) - (held.up ? 1 : 0);
 }
@@ -237,12 +241,18 @@ function bindTouchUI() {
   const zone = document.getElementById('btnzone'); const owner = {}; // pointerId -> button el
   const rel = {};
   const press = (b) => { const n = b.dataset.t; clearTimeout(rel[n]); touchH[n] = true; b.classList.add('on'); pulse[n] = true; };
-  const release = (b) => { const n = b.dataset.t; b.classList.remove('on'); clearTimeout(rel[n]); rel[n] = setTimeout(() => { touchH[n] = false; }, 55); };
+  const release = (b) => { const n = b.dataset.t; b.classList.remove('on'); clearTimeout(rel[n]); rel[n] = setTimeout(() => { touchH[n] = false; }, n === 'jump' ? 150 : 55); };
   const pick = (x, y) => { let best = null, bd = 1e9; for (const b of btns) { if (b.offsetParent === null || b.classList.contains('hidden')) continue; const r = b.getBoundingClientRect(); const cx = r.left + r.width / 2, cy = r.top + r.height / 2, rad = r.width / 2 + 18; const d = Math.hypot(x - cx, y - cy); if (d < rad && d / rad < bd) { bd = d / rad; best = b; } } return best; };
   zone.addEventListener('pointerdown', e => { e.preventDefault(); anyTouch = true; usingPad = false; initAudio(); try { zone.setPointerCapture(e.pointerId); } catch (x) {} const b = pick(e.clientX, e.clientY); if (b) { owner[e.pointerId] = b; press(b); } });
   zone.addEventListener('pointermove', e => { const cur = owner[e.pointerId]; if (cur === undefined && !(e.pointerId in owner)) { const b = pick(e.clientX, e.clientY); if (b && e.buttons) { owner[e.pointerId] = b; press(b); } return; } const b = pick(e.clientX, e.clientY); if (b !== cur) { if (cur) release(cur); if (b) { owner[e.pointerId] = b; press(b); } else delete owner[e.pointerId]; } });
   const up = e => { const cur = owner[e.pointerId]; if (cur) release(cur); delete owner[e.pointerId]; };
   zone.addEventListener('pointerup', up); zone.addEventListener('pointercancel', up); zone.addEventListener('lostpointercapture', up);
+  // safety net: when every finger is off the glass (or the page loses focus) nothing may stay pressed
+  const releaseAll = () => { for (const k in owner) delete owner[k]; for (const b of btns) { const n = b.dataset.t; clearTimeout(rel[n]); touchH[n] = false; b.classList.remove('on'); } touchEl.querySelectorAll('#pausebtn').forEach(b => { b.classList.remove('on'); touchH.pause = false; }); touchH.left = touchH.right = touchH.up = touchH.down = false; };
+  let liveTouches = 0; document.addEventListener('touchstart', e => { liveTouches = e.touches.length; }, { passive: true });
+  const lastTouchCheck = e => { liveTouches = e.touches ? e.touches.length : 0; if (liveTouches === 0) setTimeout(() => { if (liveTouches === 0) releaseAll(); }, 250); };
+  document.addEventListener('touchend', lastTouchCheck, { passive: true }); document.addEventListener('touchcancel', lastTouchCheck, { passive: true });
+  window.addEventListener('blur', releaseAll); document.addEventListener('visibilitychange', () => { if (document.hidden) releaseAll(); });
   // ---- small buttons (top row / pause): plain handlers
   touchEl.querySelectorAll('#formRow .tb[data-t], #pausebtn').forEach(b => {
     const name = b.dataset.t;
@@ -895,7 +905,8 @@ function hitEnemies(rect, dmg, o, hitset) {
 function startAttack(p) {
   const F = FC[p.form]; p.hit = {};
   if (p.form === 'ninja') {
-    if (!p.onG) { p.atkKind = 'air'; p.atkDur = 0.3; p.atkT = 0.3; sfx('slash'); }
+    if (I.my < 0 && p.vy > -300) { p.atkKind = 'rise'; p.atkDur = 0.34; p.atkT = 0.34; p.vy = -760; p.onG = false; p.jumps = Math.max(p.jumps, 0); sfx('slash3'); }
+    else if (!p.onG) { p.atkKind = 'air'; p.atkDur = 0.3; p.atkT = 0.3; sfx('slash'); }
     else {
       p.atkStep = (p.comboT > 0 && p.atkStep >= 0) ? (p.atkStep + 1) % 3 : 0;
       p.atkKind = ['s1', 's2', 's3'][p.atkStep]; p.atkDur = p.atkStep === 2 ? 0.42 : 0.25; p.atkT = p.atkDur; sfx(p.atkStep === 2 ? 'slash3' : 'slash');
@@ -912,6 +923,7 @@ function attackHits(p) {
     if (p.atkKind === 's1' && prog > 0.25 && prog < 0.75) { if (hitEnemies(meleeRect(p, 88, 8, 100, 12), 14 * bm, o, p.hit)) onMelee(p, 1); }
     else if (p.atkKind === 's2' && prog > 0.25 && prog < 0.75) { if (hitEnemies(meleeRect(p, 96, 8, 110, 12), 15 * bm, Object.assign(o, { lift: true }), p.hit)) onMelee(p, 1); }
     else if (p.atkKind === 's3' && prog > 0.2 && prog < 0.85) { if (hitEnemies({ x0: cx - 118, x1: cx + 118, y0: cy - 120, y1: cy + 6 }, 22 * bm, Object.assign(o, { heavy: true, kb: 1.4 }), p.hit)) onMelee(p, 2); if (prog > 0.5) p.hit = {}; }
+    else if (p.atkKind === 'rise' && prog > 0.1 && prog < 0.9) { if (hitEnemies({ x0: cx - 70, x1: cx + 70, y0: cy - 190, y1: cy - 10 }, 16 * bm, Object.assign(o, { lift: true }), p.hit)) onMelee(p, 1); }
     else if (p.atkKind === 'air' && prog > 0.2 && prog < 0.8) { if (hitEnemies(meleeRect(p, 100, 10, 110, -10), 15 * bm, o, p.hit)) onMelee(p, 1); }
   } else beastHits(p);
 }
@@ -924,6 +936,7 @@ function slashFx(p) {
   if (p.form === 'ninja') {
     if (p.atkKind === 's1') arc(p.x + f * 20, p.y - 50, f, 78, -1.3, 0.7, 0.16, '#d8f4ff', 14);
     else if (p.atkKind === 's2') arc(p.x + f * 20, p.y - 40, f, 86, 1.2, -0.9, 0.16, '#d8f4ff', 14);
+    else if (p.atkKind === 'rise') arc(p.x + f * 6, p.y - 80, f, 96, -2.4, 0.2, 0.22, '#d8f4ff', 14);
     else if (p.atkKind === 's3') arc(p.x, p.y - 48, f, 100, 0, TAU, 0.3, '#9affff', 16, true);
     else if (p.atkKind === 'air') arc(p.x + f * 20, p.y - 48, f, 88, -1.4, 0.9, 0.18, '#d8f4ff', 14);
   } else beastFx(p);
@@ -978,7 +991,7 @@ function updatePlayer(dt) {
     p.sp -= (4.4 - upLvl('focus') * 0.35) * (F.drain || 1) * dt;
     if (p.sp <= 0) { p.sp = 0; if (setForm(p, 'ninja')) { smoke(p.x, p.y - 40, 12, null, 24); sfx('transform'); toast('Spirit depleted'); updateFormButtons(); } else p.sp = 0.01; }
   } else p.sp = Math.min(maxSP(), p.sp + (3.5 + upLvl('spirit') * 0.6) * dt);
-  FORMS.forEach((f, i) => { if (pressed['f' + (i + 1)]) toggleForm(f); }); if (pressed.cycle) cycleForm(); if (pressed.wheel) openWheel(); if (pressed.jutsu) cycleJutsu();
+  FORMS.forEach((f, i) => { if (pressed['f' + (i + 1)]) toggleForm(f); }); if (pressed.cycle) cycleForm();
   if (G.sched.length) { for (const q of G.sched) q.t -= dt; const due = G.sched.filter(q => q.t <= 0); G.sched = G.sched.filter(q => q.t > 0); due.forEach(q => q.fn()); }
   updateClones(dt);
   if (F.stealth) { if (Math.abs(p.vx) < 50 && p.atkT <= 0 && p.hurtT <= 0 && p.dashT <= 0) p.stillT += dt; else p.stillT = 0; p.cloak = p.stillT > 0.7 ? 1 : 0; } else p.cloak = 0;
@@ -1017,11 +1030,11 @@ function updatePlayer(dt) {
   }
   // ---------------- dash
   if (p.dashT > 0) {
-    p.dashT -= dt; p.vx = p.dashDir * (p.form === 'ninja' ? 840 : 700); p.vy = 0;
+    p.dashT -= dt; p.vx = p.dashDir * (p.form === 'ninja' ? 980 : 820); p.vy = 0;
     p.afterT -= dt; if (p.afterT <= 0) { afterimage(p, '#6af'); p.afterT = 0.03; }
     if (p.dashT <= 0) p.vx *= 0.45;
   } else if (pressed.dash && p.dashCd <= 0 && F.dash && (p.onG || p.airDash > 0) && p.atkT <= 0 && !p.climb) {
-    p.dashDir = mx || p.face; p.face = p.dashDir; p.dashT = 0.17; p.dashCd = 0.5 - upLvl('swift') * 0.03; p.inv = Math.max(p.inv, 0.2); if (!p.onG) p.airDash--; p.plunge = false; sfx('dash'); dust(p.x, p.y, 8, -p.dashDir); p.afterT = 0;
+    p.dashDir = mx || p.face; p.face = p.dashDir; p.dashT = 0.26; p.dashCd = 0.5 - upLvl('swift') * 0.03; p.inv = Math.max(p.inv, 0.2); if (!p.onG) p.airDash--; p.plunge = false; sfx('dash'); dust(p.x, p.y, 8, -p.dashDir); p.afterT = 0;
     ring(p.x, p.y - 40, 6, 40, 0.2, '#9af', 4);
   }
   // ---------------- facing & horizontal
@@ -1045,7 +1058,7 @@ function updatePlayer(dt) {
     else if (canWall && p.wallT > 0) { p.vy = -870; p.vx = -p.wdir * 430; p.face = -p.wdir; p.jbuf = 0; p.lockX = 0.16; p.wallT = 0; sfx('walljump'); dust(p.x + p.wdir * 14, p.y - 50, 6, -p.wdir); p.jcut = false; p.airDash = 1; p.jumps = 0; }
     else if (p.jumps < (F.dj || 0) && !p.climb) { p.vy = -(F.djv || 820); p.jumps++; if (p.form === 'ninja') p.flipT = 0.4; if (p.form === 'kitsune') { spark(p.x, p.y - 10, 10, ['#fff', '#ffb070', '#ff7a30'], 260, 0.4); } p.jbuf = 0; sfx('jump2'); ring(p.x, p.y - 8, 6, 44, 0.25, '#bde', 4); p.jcut = false; p.plunge = false; }
   }
-  if (!held.jump && p.vy < -260 && !p.jcut && !flyer && p.hurtT <= 0) { p.vy *= 0.5; p.jcut = true; }
+  if (!held.jump && p.vy < -260 && !p.jcut && !flyer && p.hurtT <= 0) { p.vy *= 0.62; p.jcut = true; }
   if (p.vy >= 0) p.jcut = false;
   // ---------------- attacks
   if (pressed.atk) p.atkBuf = 0.14; else p.atkBuf -= dt;
@@ -1126,7 +1139,7 @@ function updateHook(p, dt) {
     p.x = tx; p.y = ty + Math.sin(p.t * 3) * 3; p.anim = 'hang'; p.fr = Math.floor(p.t * 5) % 2; p.vx = 0; p.vy = 0; p.jumps = 0; p.airDash = 1;
     const mx = I.mx; if (mx) p.face = mx;
     if (pressed.jump) { p.hook = null; p.hang = false; p.vy = -960; p.vx = mx * 360; p.jbuf = 0; p.hookCd = 0.2; sfx('jump'); p.jumps = 0; }
-    else if (pressed.dash && p.dashCd <= 0) { p.hook = null; p.hang = false; p.dashDir = mx || p.face; p.face = p.dashDir; p.dashT = 0.17; p.dashCd = 0.45; p.airDash = 0; p.inv = Math.max(p.inv, 0.2); sfx('dash'); }
+    else if (pressed.dash && p.dashCd <= 0) { p.hook = null; p.hang = false; p.dashDir = mx || p.face; p.face = p.dashDir; p.dashT = 0.26; p.dashCd = 0.45; p.airDash = 0; p.inv = Math.max(p.inv, 0.2); sfx('dash'); }
     else if (I.my > 0 && h.t > 0.25) { p.hook = null; p.hang = false; p.vy = 50; p.hookCd = 0.2; }
     else if (pressed.hook) { const nr = nearestRing(p); if (nr && nr !== r) { p.hook = { ring: nr, state: 'zip', t: 0 }; p.hang = false; sfx('hook'); p.face = sgn(nr.x - p.x); } else { p.hook = null; p.hang = false; p.vy = 0; } }
     else if (pressed.atk) { p.hook = null; p.hang = false; startAttack(p); slashFx(p); }
@@ -1149,9 +1162,9 @@ function finishPlayer(p, dt) {
     else if (p.chainT > 0) { a = 'chain'; fr = Math.min(animLen('ninja2', 'chain') - 1, Math.floor((0.28 - p.chainT) / 0.28 * animLen('ninja2', 'chain'))); }
     else if (p.flipT > 0 && !ground) { a = 'spin2'; fr = Math.floor((0.4 - p.flipT) / 0.4 * animLen('ninja2', 'spin2')) % animLen('ninja2', 'spin2'); }
     else if (p.hook) { a = p.hook.state === 'hang' ? 'hang' : 'hook'; fr = Math.floor(p.t * 6) % 2; }
-    else if (p.dashT > 0) { a = 'dash'; fr = Math.min(2, Math.floor((0.17 - p.dashT) * 18)); }
+    else if (p.dashT > 0) { a = 'dash'; fr = Math.min(2, Math.floor((0.26 - p.dashT) * 12)); }
     else if (A === 'plunge') { a = 'plunge'; fr = Math.floor(p.at * 12) % 2; }
-    else if (A === 's1' || A === 's2' || A === 's3' || A === 'air') { a = A; const n = animLen('ninja', A); fr = Math.min(n - 1, Math.floor((1 - p.atkT / p.atkDur) * n)); }
+    else if (A === 's1' || A === 's2' || A === 's3' || A === 'air' || A === 'rise') { a = A === 'rise' ? 'air' : A; const n = animLen('ninja', a); fr = Math.min(n - 1, Math.floor((1 - p.atkT / p.atkDur) * n)); }
     else if (p.special > 0 || A === 's3') { a = 's3'; fr = Math.min(4, Math.floor((1 - p.atkT / p.atkDur) * 5)); }
     else if (p.throwT > 0) { a = 'throw'; fr = Math.min(2, Math.floor((0.2 - p.throwT) * 18)); }
     else if (!ground && p.wall && p.vy > 0 && ((p.wall === 1 && held.right) || (p.wall === -1 && held.left))) { a = 'wall'; fr = Math.floor(p.t * 8) % 2; p.face = p.wall; }
@@ -1176,29 +1189,29 @@ function tryLion() {
 // ---- 04b_forms.js : beast forms, jutsu, chain weapon, form wheel ----
 const FC = {
   ninja: { w: 28, h: 88, run: 340, jump: 905, dj: 1, djv: 820, spr: 'ninja', gravity: 2250, wall: true, dash: true, name: 'Ninja', col: '#ffffff', icon: '🥷' },
-  wolf: { w: 88, h: 64, sc: 2, run: 560, jump: 1020, gravity: 2250, spr: 'wolf', name: 'Wolf', col: '#8fb4ff', icon: '🐺', dash: true, brk: 'gate', spLab: 'POUNCE',
+  wolf: { w: 88, h: 64, sc: 2, run: 560, jump: 1020, gravity: 2250, spr: 'wolf', dj: 1, djv: 900, wall: true, name: 'Wolf', col: '#8fb4ff', icon: '🐺', dash: true, brk: 'gate', spLab: 'POUNCE',
     atk: { dur: 0.26, dmg: 13, reach: 92, back: 20, top: 70, bot: 0, lunge: 200, combo: 2, t0: 0.2, t1: 0.8, fx: ['#cfe0ff', 3] } },
-  tiger: { w: 96, h: 72, sc: 2, run: 470, jump: 960, gravity: 2250, spr: 'tiger', name: 'Tiger', col: '#ffa63a', icon: '🐯', dash: true, wall: true, brk: 'gate', spLab: 'ROAR',
+  tiger: { w: 96, h: 72, sc: 2, run: 470, jump: 960, gravity: 2250, spr: 'tiger', dj: 1, djv: 860, name: 'Tiger', col: '#ffa63a', icon: '🐯', dash: true, wall: true, brk: 'gate', spLab: 'ROAR',
     atk: { dur: 0.27, dmg: 15, reach: 106, back: 16, top: 84, bot: 0, lunge: 230, combo: 3, t0: 0.2, t1: 0.8, fx: ['#ffd8a0', 3] } },
   hawk: { w: 68, h: 88, sc: 2, run: 430, jump: 700, gravity: 780, spr: 'hawk', name: 'Hawk', col: '#ffd27a', icon: '🦅', dash: true, flyer: true, hover: 0, spLab: 'DIVE',
     atk: { dur: 0.28, dmg: 12, reach: 90, back: 10, top: 60, bot: -20, lunge: 120, t0: 0.25, t1: 0.8, fx: ['#fff2c0', 1] } },
-  snake: { w: 68, h: 44, sc: 2, run: 390, jump: 760, gravity: 2250, spr: 'snake', name: 'Snake', col: '#7dff9a', icon: '🐍', climb: true, spLab: 'SPIT',
+  snake: { w: 68, h: 44, sc: 2, run: 390, jump: 760, gravity: 2250, spr: 'snake', dj: 1, djv: 680, wall: true, name: 'Snake', col: '#7dff9a', icon: '🐍', climb: true, spLab: 'SPIT',
     atk: { dur: 0.3, dmg: 11, reach: 100, back: 10, top: 50, bot: -6, lunge: 330, poison: 3, t0: 0.15, t1: 0.75, fx: ['#b8ffc8', 1] } },
-  bear: { w: 112, h: 84, sc: 2, run: 235, jump: 770, gravity: 2250, spr: 'bear', name: 'Bear', col: '#c98a5a', icon: '🐻', armor: 0.5, brk: 'all', spLab: 'SLAM',
+  bear: { w: 112, h: 84, sc: 2, run: 235, jump: 770, gravity: 2250, spr: 'bear', dj: 1, djv: 680, wall: true, name: 'Bear', col: '#c98a5a', icon: '🐻', armor: 0.5, brk: 'all', spLab: 'SLAM',
     atk: { dur: 0.42, dmg: 22, reach: 112, back: 14, top: 110, bot: 0, lunge: 80, heavy: true, kb: 1.5, t0: 0.3, t1: 0.8, fx: ['#ffd8a0', 3] } },
-  gorilla: { w: 80, h: 116, sc: 2, run: 270, jump: 800, gravity: 2250, spr: 'gorilla', name: 'Gorilla', col: '#9a9ab0', icon: '🦍', armor: 0.6, climb: true, brk: 'all', spLab: 'POUND',
+  gorilla: { w: 80, h: 116, sc: 2, run: 270, jump: 800, gravity: 2250, spr: 'gorilla', dj: 1, djv: 720, wall: true, name: 'Gorilla', col: '#9a9ab0', icon: '🦍', armor: 0.6, climb: true, brk: 'all', spLab: 'POUND',
     atk: { dur: 0.38, dmg: 19, reach: 114, back: 16, top: 124, bot: 0, lunge: 90, combo: 2, heavy: true, kb: 1.4, t0: 0.3, t1: 0.8, fx: ['#d8d8f0', 2] } },
-  kitsune: { w: 80, h: 60, sc: 2, run: 450, jump: 900, gravity: 1950, dj: 1, djv: 780, glide: 170, spr: 'kitsune', name: 'Kitsune', col: '#ff8a4a', icon: '🦊', spLab: 'FOXFIRE',
+  kitsune: { w: 80, h: 60, sc: 2, run: 450, jump: 900, gravity: 1950, dj: 1, djv: 780, glide: 170, spr: 'kitsune', wall: true, name: 'Kitsune', col: '#ff8a4a', icon: '🦊', spLab: 'FOXFIRE',
     atk: { dur: 0.22, dmg: 9, reach: 86, back: 10, top: 70, bot: 0, lunge: 150, combo: 3, burn: 3, t0: 0.2, t1: 0.8, fx: ['#ffb070', 2] } },
-  panther: { w: 92, h: 64, sc: 2, run: 620, jump: 1000, gravity: 2250, spr: 'panther', name: 'Panther', col: '#b07aff', icon: '🐆', dash: true, wall: true, stealth: true, brk: 'gate', spLab: 'SHADOW',
+  panther: { w: 92, h: 64, sc: 2, run: 620, jump: 1000, gravity: 2250, spr: 'panther', dj: 1, djv: 880, name: 'Panther', col: '#b07aff', icon: '🐆', dash: true, wall: true, stealth: true, brk: 'gate', spLab: 'SHADOW',
     atk: { dur: 0.2, dmg: 12, reach: 92, back: 16, top: 62, bot: 0, lunge: 240, combo: 2, t0: 0.2, t1: 0.8, fx: ['#d8b8ff', 2] } },
-  rhino: { w: 132, h: 76, sc: 2, run: 300, jump: 720, gravity: 2250, spr: 'rhino', name: 'Rhino', col: '#b0a090', icon: '🦏', armor: 0.45, brk: 'all', spLab: 'CHARGE',
+  rhino: { w: 132, h: 76, sc: 2, run: 300, jump: 720, gravity: 2250, spr: 'rhino', dj: 1, djv: 640, wall: true, name: 'Rhino', col: '#b0a090', icon: '🦏', armor: 0.45, brk: 'all', spLab: 'CHARGE',
     atk: { dur: 0.44, dmg: 21, reach: 106, back: 10, top: 80, bot: 0, lunge: 100, heavy: true, lift: true, kb: 1.5, t0: 0.3, t1: 0.8, fx: ['#e8e0d0', 2] } },
   dragon: { w: 88, h: 80, sc: 2, run: 520, jump: 760, gravity: 780, spr: 'dragon', name: 'Dragon', col: '#ff5a3a', icon: '🐉', dash: true, flyer: true, hover: 0, drain: 1.35, spLab: 'BREATH',
     atk: { dur: 0.3, dmg: 18, reach: 108, back: 10, top: 72, bot: -20, lunge: 140, burn: 3, t0: 0.25, t1: 0.8, fx: ['#ffb070', 2] } },
 };
 const FORMINFO = {
-  wolf: 'Fast and fierce. Claw combo, Pounce (smashes wolf gates).',
+  wolf: 'Fast and fierce. Double-jump, wall-jump. Claw combo, Pounce (smashes wolf gates).',
   tiger: 'Three-hit claw flurry, wall-jump, and a stunning Roar.',
   hawk: 'Fly! Hold JUMP to climb. Feather volley and Dive bomb. Reaches sky islands.',
   snake: 'Slither through tiny tunnels, climb walls, spit venom.',
@@ -1214,7 +1227,7 @@ const FORM_REWARD = [['hawk', 'tiger'], ['snake', 'kitsune'], ['bear', 'panther'
 
 // ------------------------------------------------------------------ jutsu (ninja specials)
 const JUTSU = [
-  { id: 'whirl', name: 'Whirlwind', short: 'WHIRL', icon: '🌀', cost: 25, boss: -1, desc: 'Spin blades that cut everything near and deflect shots.' },
+  { id: 'whirl', name: 'Moon Slash', short: 'MOON', icon: '🌙', cost: 25, boss: -1, desc: 'Carve a huge crescent of moonlight that tears through everything in its path, twice.' },
   { id: 'fire', name: 'Fire Dragon', short: 'DRAGON', icon: '🔥', cost: 30, boss: 0, desc: 'Launch a seeking dragon of flame that pierces and burns.' },
   { id: 'bolt', name: 'Lightning Strike', short: 'BOLT', icon: '⚡', cost: 35, boss: 1, desc: 'Call down thunder on every foe in view.' },
   { id: 'step', name: 'Shadow Step', short: 'STEP', icon: '👤', cost: 20, boss: 2, desc: 'Vanish and reappear behind a foe with a flurry of cuts.' },
@@ -1226,28 +1239,30 @@ function unlockJutsuFor(si) {
   const j = JUTSU.find(x => x.boss === si); if (!j || save.jutsu.indexOf(j.id) >= 0) return null;
   save.jutsu.push(j.id); save.jsel = j.id; writeSave(); updateHudButtons(); return j;
 }
-function cycleJutsu() {
-  if (!G || G.p.form !== 'ninja') return;
-  const list = JUTSU.filter(j => save.jutsu.indexOf(j.id) >= 0); if (list.length < 2) { toast('Defeat bosses to learn more jutsu', 1.6); return; }
-  const i = list.findIndex(j => j.id === save.jsel); const nx = list[(i + 1) % list.length]; save.jsel = nx.id; writeSave(); updateHudButtons();
-  toast(nx.icon + ' ' + nx.name + ' (' + nx.cost + ' spirit)', 1.4); sfx('hook');
-}
+function cycleJutsu() {}
 const foes = () => G.en.filter(e => !e.dead).concat(G.boss && !G.boss.dead && G.boss.st !== 'intro' ? [G.boss] : []);
 const inView = e => e.x > G.cam.x - 40 && e.x < G.cam.x + VW + 40 && e.y > G.cam.y - 40 && e.y < G.cam.y + H + 160;
 function later(t, fn) { G.sched.push({ t, fn }); }
+// direction + SPEC picks the jutsu: neutral whirl, forward dragon, up lightning, down frost, down+forward shadow step, up+forward clones
+function jutsuDir(p) {
+  const mx = I.mx, my = I.my, fw = mx !== 0; // holding a direction turns you, so any sideways hold counts as 'forward'
+  if (my < 0 && fw) return 'clone'; if (my < 0) return 'bolt'; if (my > 0 && fw) return 'step'; if (my > 0) return 'ice'; if (fw) return 'fire'; return 'whirl';
+}
 function castJutsu(p) {
-  const J = jutsuById(save.jsel);
-  if (save.jutsu.indexOf(J.id) < 0) { save.jsel = 'whirl'; return castJutsu(p); }
-  if (p.sp < J.cost) { toast('Need ' + J.cost + ' spirit'); return; }
-  if (J.id === 'step' && !foes().some(e => Math.abs(e.x - p.x) < 640 && Math.abs(e.y - p.y) < 300)) { /* still allowed: blink forward */ }
+  let J = jutsuById(jutsuDir(p));
+  if (save.jutsu.indexOf(J.id) < 0) { toast('🔒 ' + J.name + ': beat guardian ' + (J.boss + 1), 1.4); J = jutsuById('whirl'); }
+  if (p.sp < J.cost) { toast('Need ' + J.cost + ' spirit', 1.0); return; }
   p.sp -= J.cost; p.spCd = 0.8; JUT[J.id](p);
 }
 const ninjaAnim = a => (SPR.ninja2 && SPR.ninja2.anims[a]) || (SPR.ninja && SPR.ninja.anims[a]) ? a : 'cast';
 const ninjaSpr = a => (SPR.ninja2 && SPR.ninja2.anims[a]) ? 'ninja2' : 'ninja';
 const JUT = {
   whirl(p) {
-    p.special = 0.5; p.atkKind = 's3'; p.atkDur = 0.5; p.atkT = 0.5; p.hit = {}; p.inv = Math.max(p.inv, 0.5); p.vy = Math.min(p.vy, -250);
-    sfx('slash3'); sfx('zap'); ring(p.x, p.y - 50, 20, 140, 0.4, '#9affff', 8);
+    const f = p.face; p.atkKind = 'cast'; p.cAnim = 'cast'; p.atkDur = 0.34; p.atkT = 0.34; p.vx = -f * 80; p.inv = Math.max(p.inv, 0.3);
+    sfx('slash3'); sfx('zap'); ring(p.x + f * 20, p.y - 56, 14, 110, 0.3, '#bff4ff', 8); G.flash = 0.12;
+    const wave = (dy, sc, dmg) => G.pr.push({ t: 'moonwave', own: 'p', x: p.x + f * 40, y: p.y - 58 + dy, vx: f * 1050, vy: 0, w: 70 * sc, h: 150 * sc, dmg: dmg * dmgMul(), life: 0.85, pierce: true, hit: {}, tr: [], sc, o: { heavy: true, kb: 1.3 } });
+    later(0.1, () => { wave(0, 1, 24); sfx('boom'); shake(5); });
+    later(0.26, () => { wave(-10, 1.35, 30); sfx('slash3'); shake(7); spark(p.x + f * 60, p.y - 60, 14, ['#fff', '#bff4ff', '#8ad0ff'], 420, 0.4); });
   },
   fire(p) {
     const f = p.face; p.atkKind = 'cast'; p.cAnim = 'cast'; p.atkDur = 0.4; p.atkT = 0.4; p.vx = -f * 60; p.inv = Math.max(p.inv, 0.3); sfx('roar'); shake(6);
@@ -1480,19 +1495,20 @@ function openWheel() {
     const F = FC[f], own = f === 'ninja' || hasForm(f); const c = document.createElement('div'); c.className = 'cell' + (own ? '' : ' lock') + (G.p.form === f ? ' cur' : '');
     c.appendChild(thumb(F.spr)); const l = document.createElement('div'); l.textContent = F.name; c.appendChild(l);
     const sm = document.createElement('small'); sm.textContent = f === 'ninja' ? 'human' : own ? cost + ' sp · ' + (i < 10 ? '[' + (i === 10 ? 0 : i) + ']' : '') : '???'; c.appendChild(sm);
-    c.addEventListener('click', e => { e.stopPropagation(); if (!own) { toast('Not found yet'); return; } closeWheel(); if (f === 'ninja') { if (G.p.form !== 'ninja') toggleForm(G.p.form); } else if (G.p.form !== f) toggleForm(f); else toggleForm(f); });
+    c.addEventListener('click', e => { e.stopPropagation(); if (!wheelArmed) return; if (!own) { toast('Not found yet'); return; } closeWheel(); if (f === 'ninja') { if (G.p.form !== 'ninja') toggleForm(G.p.form); } else if (G.p.form !== f) toggleForm(f); else toggleForm(f); });
     g.appendChild(c);
   });
   const hint = document.createElement('div'); hint.className = 'hint'; hint.textContent = 'Tap a form. Tap outside to close.'; box.appendChild(hint);
-  wheelEl.appendChild(box); wheelEl.style.display = 'flex'; wheelEl.onclick = () => closeWheel();
+  wheelEl.appendChild(box); wheelEl.style.display = 'flex'; wheelArmed = false; wheelEl.onpointerdown = () => { wheelArmed = true; }; wheelEl.onclick = () => { if (wheelArmed) closeWheel(); };
 }
+let wheelArmed = false; // a wheel click only counts if the finger went DOWN on the wheel (the release of the FORM press must not pick/close)
 function closeWheel() { wheelOpen = false; wheelEl.style.display = 'none'; }
 function updateHudButtons() {
   if (!G || !G.p) return; const p = G.p, F = FC[p.form], nj = p.form === 'ninja';
   const set = (id, hide) => { const b = document.getElementById(id); if (b) b.classList.toggle('hidden', hide); };
-  set('chainbtn', !nj); set('starbtn', !nj); set('jutsubtn', !nj);
-  const lab = document.getElementById('speclab'); if (lab) lab.textContent = nj ? jutsuById(save.jsel).short : (F.spLab || 'SPECIAL');
-  const ji = document.getElementById('jutsuico'); if (ji) ji.textContent = jutsuById(save.jsel).icon;
+  set('chainbtn', !nj); set('starbtn', !nj);
+  const lab = document.getElementById('speclab'); if (lab) lab.textContent = nj ? 'JUTSU' : (F.spLab || 'SPECIAL');
+  const jl = document.getElementById('jleg'); if (jl) { const has = id => save.jutsu.indexOf(id) >= 0; const it = (id, t) => '<i class="' + (has(id) ? 'on' : '') + '">' + t + '</i>'; jl.innerHTML = nj ? it('bolt', '↑⚡') + ' ' + it('clone', '↗👥') + '<br>' + it('step', '↘👤') + ' <i class="on">·🌙</i> ' + it('fire', '→🔥') + '<br>' + it('ice', '↓❄') : ''; }
   const wi = document.getElementById('wheelico'); if (wi) wi.textContent = F.icon;
   const l = document.getElementById('lionbtn'); if (l) l.classList.toggle('lock', !save.lion);
 }
@@ -1767,7 +1783,7 @@ const TIPTEXT = {
   wall: ['Push into a wall to slide, then JUMP to wall-jump up!', 'Hold toward a wall to slide, then press SPACE to wall-jump up.'],
   dash: ['DASH slips through attacks — works in mid-air too.', 'SHIFT / L: dash. It dodges attacks, even in mid-air.'],
   hook: ['Press HOOK near a golden ring to zip to it. JUMP to launch off.', 'Press F near a golden ring to zip to it. SPACE to launch off.'],
-  atk: ['ATTACK chains a 3-hit combo. In the air hold DOWN + ATTACK to plunge.', 'J: 3-hit combo. In the air hold S + J to plunge. R: shuriken. Q: whirlwind (25 spirit).'],
+  atk: ['ATTACK chains a 3-hit combo. In the air hold DOWN + ATTACK to plunge.', 'J: 3-hit combo. In the air hold S + J to plunge. R: shuriken. Q: moon slash (25 spirit).'],
   stage1: ['The tengu\'s fog hides rope bridges. Watch your footing.', 'Misty cliffs ahead.'],
   stage2: ['Spirits can\'t be cut by habit. Keep moving.', 'The temple stirs...'],
   stage3: ['Ice is slippery. Plan your stops.', 'Frozen ground ahead.'],
@@ -2117,6 +2133,11 @@ function drawProj(c, q) {
   else if (t === 'kunai' || t === 'star' || t === 'feather') { c.save(); c.translate(x, y); if (t === 'star') { c.rotate(G.t * 25); c.fillStyle = '#e8f4ff'; for (let i = 0; i < 4; i++) { c.rotate(Math.PI / 2); c.fillRect(-2, -12, 4, 12); } c.fillStyle = '#6a7a90'; c.fillRect(-3, -3, 6, 6); } else { c.rotate(q.rot); c.fillStyle = PRC[t]; c.fillRect(-12, -3, 24, 6); c.fillStyle = '#fff'; c.fillRect(6, -2, 8, 4); } c.restore(); }
   else if (t === 'foxfire') { glow(c, x, y, 38, '#ff8a3a', 0.6); c.fillStyle = '#fff2c0'; c.beginPath(); c.arc(x, y, 7, 0, TAU); c.fill(); c.fillStyle = '#ff8a3a'; c.beginPath(); c.moveTo(x - q.vx * 0.04, y - q.vy * 0.04); c.lineTo(x - 5, y - 10); c.lineTo(x + 5, y + 10); c.closePath(); c.fill(); c.fillStyle = '#5ad8ff'; c.beginPath(); c.arc(x, y, 4, 0, TAU); c.fill(); }
   else if (t === 'flame') { const a = clamp(q.life / 0.5, 0, 1), r = 10 + (1 - a) * 22; glow(c, x, y, r * 2.2, '#ff7a30', 0.5 * a + 0.1); c.globalAlpha = 0.5 + a * 0.5; c.fillStyle = a > 0.6 ? '#fff2c0' : a > 0.3 ? '#ffb040' : '#ff5a20'; c.beginPath(); c.arc(x, y, r, 0, TAU); c.fill(); c.globalAlpha = 1; }
+  else if (t === 'moonwave') { const f = Math.sign(q.vx) || 1, sc = q.sc || 1, tr = q.tr || [];
+    const cres = (x, y, k, al) => { c.save(); c.translate(x, y); c.scale(f * sc * k, sc * k); c.globalAlpha = al; c.beginPath(); c.arc(0, 0, 78, -1.2, 1.2); c.arc(-34, 0, 70, 1.25, -1.25, true); c.closePath(); c.fill(); c.restore(); };
+    glow(c, q.x, q.y, 130 * sc, '#8ad0ff', 0.4);
+    c.fillStyle = '#4aa8ff'; for (let i = Math.min(tr.length - 1, 10); i >= 2; i -= 2) cres(tr[i].x, tr[i].y, 1 - i * 0.03, 0.18);
+    c.fillStyle = '#9ae6ff'; cres(q.x, q.y, 1, 0.9); c.fillStyle = '#ffffff'; cres(q.x + f * 6 * sc, q.y, 0.78, 0.95); }
   else if (t === 'dragonfire') { const tr = q.tr || []; for (let i = tr.length - 1; i >= 0; i--) { const k = 1 - i / tr.length, r = 10 + k * 26; glow(c, tr[i].x, tr[i].y, r * 2, '#ff6a20', 0.35 * k); c.fillStyle = i % 3 === 0 ? '#fff2c0' : i % 3 === 1 ? '#ffb040' : '#ff5a20'; c.beginPath(); c.arc(tr[i].x + Math.sin(G.t * 20 + i) * 4, tr[i].y + Math.cos(G.t * 18 + i) * 4, r * 0.8, 0, TAU); c.fill(); }
     c.save(); c.translate(x, y); c.rotate(Math.atan2(q.vy, q.vx)); glow(c, 0, 0, 80, '#ffb040', 0.7); c.fillStyle = '#ff5a20'; c.beginPath(); c.moveTo(-30, -22); c.lineTo(34, -12); c.lineTo(48, 0); c.lineTo(34, 14); c.lineTo(-30, 24); c.closePath(); c.fill(); c.fillStyle = '#ffd070'; c.beginPath(); c.moveTo(-10, -12); c.lineTo(34, -4); c.lineTo(34, 8); c.lineTo(-10, 14); c.closePath(); c.fill(); c.fillStyle = '#7a1408'; c.beginPath(); c.moveTo(-6, -22); c.lineTo(-24, -42); c.lineTo(8, -20); c.fill(); c.beginPath(); c.moveTo(4, -18); c.lineTo(-8, -38); c.lineTo(20, -16); c.fill(); c.fillStyle = '#fff'; c.fillRect(22, -10, 8, 6); c.fillStyle = '#000'; c.fillRect(26, -9, 4, 4); c.restore(); }
   else if (t === 'orb' || t === 'dark' || t === 'fireball' || t === 'spit') { const col = PRC[t]; glow(c, x, y, 32, col, 0.7); c.fillStyle = '#fff'; c.beginPath(); c.arc(x, y, t === 'orb' ? 8 : 10, 0, TAU); c.fill(); c.fillStyle = col; c.beginPath(); c.arc(x, y, t === 'orb' ? 12 : 14, 0, TAU); c.globalAlpha = 0.55; c.fill(); c.globalAlpha = 1; }
@@ -2294,6 +2315,8 @@ const backBtn = a => `<div class="btn dim" data-a="${a}" data-back="1">◀ Back<
 function act(a) {
   const i = a.indexOf(':'), name = i < 0 ? a : a.slice(0, i), arg = i < 0 ? '' : a.slice(i + 1);
   switch (name) {
+    case 'install': doInstall(); break;
+    case 'dlfile': doDownload(); break;
     case 'start': if (!save.introSeen) showStory(0); else showMap(); break;
     case 'story': showStory(+arg); break;
     case 'storyEnd': save.introSeen = true; writeSave(); showMap(); break;
@@ -2326,12 +2349,27 @@ let dbgTaps = 0, dbgTapT = 0;
 document.addEventListener('click', e => { if (e.target && e.target.classList && e.target.classList.contains('dbgtap')) { const now = performance.now(); if (now - dbgTapT > 2500) dbgTaps = 0; dbgTapT = now; if (++dbgTaps >= 5) { dbgTaps = 0; showDbgCode(); } } });
 
 function fmtTime(s) { s = Math.floor(s); const m = Math.floor(s / 60); return m + ':' + String(s % 60).padStart(2, '0'); }
+// ---- install / download (PWA install prompt + a plain copy of the game file)
+let deferredInstall = null;
+window.addEventListener('beforeinstallprompt', e => { e.preventDefault(); deferredInstall = e; if (lastScreen === 'title' && !G) showTitle(); });
+window.addEventListener('appinstalled', () => { deferredInstall = null; if (lastScreen === 'title' && !G) showTitle(); });
+const isStandalone = () => (window.matchMedia && matchMedia('(display-mode: standalone)').matches) || navigator.standalone;
+function installBtns() { return isStandalone() ? '' : btn('📲 Install App', 'install', 'alt small') + btn('⬇ Download Game File', 'dlfile', 'dim small'); }
+function doInstall() {
+  if (deferredInstall) { const d = deferredInstall; deferredInstall = null; d.prompt(); d.userChoice.then(() => showTitle()).catch(() => {}); return; }
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  showOv(`<h2>Install Beast Shinobi</h2><p style="max-width:520px;margin:6px auto;line-height:1.5">${ios ? 'On iPhone/iPad: tap the <b>Share</b> button in Safari, then <b>Add to Home Screen</b>.' : 'On Android (Chrome): open the <b>⋮ menu</b>, then <b>Install app</b> (or <b>Add to Home screen</b>). If you do not see it, open the game from its web address (the GitHub or itch.io page) instead of a downloaded file, then try again.'} The game then runs full screen and works offline.</p><div class="btns">${btn('Back', 'title', 'alt')}</div>`, 'install');
+}
+function doDownload() {
+  const save1 = (blob) => { const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'index.html'; document.body.appendChild(a); a.click(); setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 800); menuToast('Saved index.html. Double-click it to play offline.'); };
+  fetch(location.href.split('#')[0]).then(r => { if (!r.ok) throw 0; return r.blob(); }).then(save1).catch(() => menuToast('Could not copy from here. Use your browser menu: Share or Save page as.'));
+}
 function showTitle() {
   lastScreen = 'title';
   mus.mode = 'calm'; mapTheme = clamp(save.cleared, 0, 5);
   const dn = { easy: 'Easy', normal: 'Normal', hard: 'Hard' }[save.diff];
   showOv(`<h1>BEAST SHINOBI</h1><div class="sub dbgtap">獣忍 · SPIRIT OF THE WILD ${save.ending ? '★' : ''}</div>
-    <div class="btns" style="flex-direction:column;align-items:center">${btn(save.cleared || save.introSeen ? 'CONTINUE' : 'START', 'start')}${btn('Difficulty: ' + dn, 'diff', 'alt small')}${btn(save.muted ? '🔇 Sound: OFF' : '🔊 Sound: ON', 'sound', 'dim small')}${btn('Beasts &amp; Controls', 'beasts', 'alt small')}</div>
+    <div class="btns" style="flex-direction:column;align-items:center">${btn(save.cleared || save.introSeen ? 'CONTINUE' : 'START', 'start')}${btn('Difficulty: ' + dn, 'diff', 'alt small')}${btn(save.muted ? '🔇 Sound: OFF' : '🔊 Sound: ON', 'sound', 'dim small')}${btn('Beasts &amp; Controls', 'beasts', 'alt small')}${installBtns()}</div>
     <div class="vet">Realms cleared ${save.cleared}/6 · Coins ${save.coins}</div>`, 'title');
 }
 const INTRO = [
@@ -2369,8 +2407,8 @@ function showBeasts() {
   cards += `<div class="card ${save.lion ? '' : 'locked'}"><b style="color:#ffd86b">🦁 Spirit Lion${save.lion ? '' : ' (not found yet)'}</b><small>${esc(FORMINFO.lion)}</small></div>`;
   const row = (t, b) => `<div class="row" style="flex-direction:column;align-items:flex-start;max-width:760px;width:96%"><b>${t}</b><small>${b}</small></div>`;
   showOv(`<h2>Beasts &amp; Controls</h2>${row('⌨ Keyboard', 'A/D move · Space or W jump (hold = higher, press again in air = double jump, toward a wall = wall-jump) · J attack (3-hit combo; in air hold S + J = plunge) · L or Shift dash · R shuriken · Q jutsu · Z switch jutsu · F chain (binds enemies, or grabs golden rings) · M form picker · 1-9, 0 beasts · H Lion · Tab cycle · P pause')}
-    ${row('📱 Touch', 'Drag the left side of the screen to move. Right side: Jump, Attack, Dash, Chain, Star, Jutsu. Top row: FORM picker (tap to choose any beast), JUTSU switch, Lion. Slide your thumb between buttons freely.')}
-    ${row('🎮 Controller', 'A jump · X attack · B dash · Y shuriken · LB jutsu/special · RB chain · RT cycle beast · LT lion · Select switch jutsu · Start pause')}
+    ${row('📱 Touch', 'Left side: drag to move. Right thumb: JUMP (big, outer), ATTACK (inner), DASH, CHAIN, STAR. JUTSU button + direction: tap = Moon Slash, hold → = Fire Dragon, ↑ = Lightning, ↓ = Frost Nova, ↘ = Shadow Step, ↗ = Clones. ATTACK + ↑ = rising slash, ATTACK + ↓ in the air = plunge. FORM button (left of the cluster) opens the beast picker; LION above it.')}
+    ${row('🎮 Controller', 'A jump · X attack · B dash · Y shuriken · LB jutsu/special (hold a direction) · RB chain · RT cycle beast · LT lion · Select form wheel · Start pause')}
     ${row('Tips', 'Beast forms drain spirit; shuriken, hits and drops refill it. Fall in a pit? You respawn on safe ground. Look for golden rings, shrines, and doors only a beast can open.')}
     <div class="grid">${cards}</div><div class="btns act">${backBtn('beastsBack')}</div>`, 'clear');
 }
@@ -2456,12 +2494,13 @@ function frame(ts) {
   requestAnimationFrame(frame);
   const dt = Math.min(0.05, (ts - lastT) / 1000 || 0.016); lastT = ts;
   try {
-    pollInput(); menuInput();
+    pollInput(); menuInput(); keepP = false;
     if (G) {
       if (G.state === 'play') {
+        if (pressed.wheel) { pressed.wheel = false; if (wheelOpen) closeWheel(); else openWheel(); }
         if (wheelOpen && (pressed.pause || pressed.back)) closeWheel();
         else if (pressed.pause) pauseGame();
-        else { acc += dt * (wheelOpen ? 0.06 : 1); let n = 0; while (acc >= 1 / 60 && n < 4) { stepGame(1 / 60); clearPressed(); acc -= 1 / 60; n++; if (!G || G.state !== 'play') break; } if (n >= 4) acc = 0; }
+        else { acc += dt * (wheelOpen ? 0.06 : 1); let n = 0; while (acc >= 1 / 60 && n < 4) { stepGame(1 / 60); clearPressed(); acc -= 1 / 60; n++; if (!G || G.state !== 'play') break; } if (n >= 4) acc = 0; if (n === 0) keepP = true; }
       }
       if (G) render(ctx); else renderTitle(ctx, dt, mapTheme);
     } else renderTitle(ctx, dt, mapTheme);
@@ -2470,7 +2509,7 @@ function frame(ts) {
     if (!errShown) { errShown = true; const d = document.createElement('div'); d.style.cssText = 'position:fixed;left:0;right:0;top:0;background:#a00;color:#fff;font:12px monospace;padding:6px;z-index:99;white-space:pre-wrap'; d.textContent = 'Error: ' + (e && e.stack || e); document.body.appendChild(d); }
   }
 }
-window.__game = { get G() { return G; }, act, save: () => save, dbgDo, startStage, keyH, tick: () => { pollInput(); stepGame(1 / 60); clearPressed(); }, cur: () => ({ held, pressed }), api: { toggleForm, FC, JUTSU, FORMS, spawn: (t, dx, dy) => { const p = G.p; const e = mkEnemy(t, p.x + dx, p.y + (dy || 0)); G.en.push(e); return e; }, openWheel, closeWheel, wheelOpen: () => wheelOpen, setForm: (f) => { setForm(G.p, f); updateHudButtons(); } } };
+window.__game = { get G() { return G; }, act, save: () => save, dbgDo, startStage, keyH, tick: () => { pollInput(); stepGame(1 / 60); clearPressed(); }, cur: () => ({ held, pressed }), api: { tAt, toggleForm, FC, JUTSU, FORMS, spawn: (t, dx, dy) => { const p = G.p; const e = mkEnemy(t, p.x + dx, p.y + (dy || 0)); G.en.push(e); return e; }, openWheel, closeWheel, wheelOpen: () => wheelOpen, setForm: (f) => { setForm(G.p, f); updateHudButtons(); } } };
 loadSave(); bindTouchUI(); fit(); refreshTouchUI();
 loadSheets(() => { showTitle(); requestAnimationFrame(frame); });
 if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) navigator.serviceWorker.register('sw.js').catch(() => {});
